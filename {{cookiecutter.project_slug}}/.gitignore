@@ -1,0 +1,30 @@
+# Only for very generic files and project specific ignores
+# Here is a Python boilerplate exclude file
+# https://github.com/github/gitignore/blob/master/Python.gitignore
+# You can add your user specific .gitignore like:
+# $ echo .idea > ~/.gitignore
+# $ git config --global core.excludesfile ~/.gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# our own version file
+VERSION
+
+docs/html

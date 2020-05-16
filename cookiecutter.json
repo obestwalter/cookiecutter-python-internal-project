@@ -1,0 +1,5 @@
+{
+  "project_slug": "cool-new-project",
+  "importable_name": "{{ cookiecutter.project_slug.lower().replace('-', '_') }}",
+  "project_url": "https://example.com/todo-adjust-for-your-organisation/{{ cookiecutter.project_slug }}"
+}
