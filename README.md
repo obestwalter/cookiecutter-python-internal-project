@@ -46,7 +46,7 @@ The cookiecutter creates a new project that ...
     **NOTE** if your build system and other restrictions allow to work with VCS based automatic versioning, I would recommend to look into [setuptools-scm](https://pypi.org/project/setuptools-scm/) instead.
     * creates versions like:
         * dev: a timestamped versin that is always smaller than any production version
-        * branch: 0.<issue number>.<build number> - is always smaller as any production version (>1.0) (e.g. 0.234.666). This is helpful if you have several packages that depend on each other and need to make changes in several of them. The requirements of the depending project can then be adjusted to depend on the newest build from that branch (via requesting `my-internal-dependency==0.<issue number>.*` in requirements.txt)
+        * branch: `0.<issue number>.<build number>` - is always smaller as any production version (>1.0) (e.g. 0.234.666). This is helpful if you have several packages that depend on each other and need to make changes in several of them. The requirements of the depending project can then be adjusted to depend on the newest build from that branch (via requesting `my-internal-dependency==0.<issue number>.*` in requirements.txt)
         * production: human controlled API part (in `VERSION_STUB`) plus automatically provided patch number (e.g. 2.0.239) - good enough for only internally used versioning  
     * please note that the vendored script `versioneer.py` is likely not suitable for your use case out of the box, but can serve as a starting point. Ideally it should also not be copy and pasted around but part of a suite of tools that are installed wherever packages need to be built, so on devboxes and CI systems.
 
