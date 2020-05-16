@@ -29,26 +29,25 @@ For more details about cookiecutter see their [great docs](https://cookiecutter.
 
 ## What Does it Do?
 
-There are a lot of assumptions that might not fit your use case, but if you feel lost and need something to get started, this might still be helpful. Some assumptions are that you use git as version control, and internal PyPI mirror, and Bamboo for CI. Most of these should be adjustable with not too much effort though to your specific internal setup.
+There are a lot of assumptions that might not fit your use case, but if you feel lost and need something to get started, this might still be helpful. Some assumptions are that you use git as version control, an internal PyPI mirror, and Bamboo for CI. Most of these should be adjustable with not too much effort though to your specific internal setup.
 
 The cookiecutter creates a new project that ...
 
 * is a valid Python package that can be published on a PyPI compatible package index (old skool - not PEP517/518 based)
-* [tox](https://pypi.org/project/tox) based automation with environments for:
+* provides [tox](https://pypi.org/project/tox) based automation with environments for:
     * static code analysis and automatic fixes using [pre-commit](https://pypi.org/project/pre-commit/)
     * pytest based tests with coverage measurement using [coverage.py](https://pypi.org/project/coverage)
     * developing and publishing documentation (TODO open source bitbucket pages publisher)
     * checking requirements with [pip-checks-reqs](https://pypi.org/project/pip_check_reqs/)
-* [editorconfig](https://editorconfig.org/) from the docs: "EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs."
-* check the project name if a valid importable name can be created from it to keep naming consistent (`hooks/pre_gen_project.py`) 
-* Sphinx based documentation with todo links that contain the link to the file where the todo is located only when build locally (otherwise it contains the TODO without the then nonsensical file link)
-* an automatic versioning mechanism (vendored script `versioneer.py`) 
-    **NOTE** if your build system and other restrictions allow to work with VCS based automatic versioning, I would recommend to look into [setuptools-scm](https://pypi.org/project/setuptools-scm/) instead.
-    * creates versions like:
+* contains an [editorconfig](https://editorconfig.org/) from the docs: "EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs."
+* checks the project name if a valid importable name can be created from it to keep naming consistent (`hooks/pre_gen_project.py`) 
+* builds Sphinx based documentation with todo links that contain the link to the file where the todo is located only when build locally (otherwise it contains the TODO without the then nonsensical file link)
+* provides an automatic versioning mechanism (vendored script `versioneer.py`) that creates versions like:
         * dev: a timestamped versin that is always smaller than any production version
         * branch: `0.<issue number>.<build number>` - is always smaller as any production version (>1.0) (e.g. 0.234.666). This is helpful if you have several packages that depend on each other and need to make changes in several of them. The requirements of the depending project can then be adjusted to depend on the newest build from that branch (via requesting `my-internal-dependency==0.<issue number>.*` in requirements.txt)
-        * production: human controlled API part (in `VERSION_STUB`) plus automatically provided patch number (e.g. 2.0.239) - good enough for only internally used versioning  
-    * please note that the vendored script `versioneer.py` is likely not suitable for your use case out of the box, but can serve as a starting point. Ideally it should also not be copy and pasted around but part of a suite of tools that are installed wherever packages need to be built, so on devboxes and CI systems.
+        * production: human controlled API part (in `VERSION_STUB`) plus automatically provided patch number (e.g. 2.0.239) - good enough for only internally used versioning
+    **NOTE:** if your build system and other restrictions allow to work with VCS based automatic versioning, I would recommend to look into [setuptools-scm](https://pypi.org/project/setuptools-scm/) instead
+    * **NOTE:** the vendored script `versioneer.py` is likely not suitable for your use case out of the box, but can serve as a starting point. Ideally it should also not be copy and pasted around but part of an internal suite of tools that are installed wherever packages need to be built, so on devboxes and CI systems.
 
 **WARNING:** the publishing script for the documentation publishing is not included (yet - I might get around to open sourcing that at a later point). The basic idea there is the same as used e.g. by github pages: the documentation is built and committed into an orphan branch in the same repository that can then be hosted by the repository hoster. There are a few solutions out there that you might be able to use for this approach. Have a look at how e.g. [Lektor](https://www.getlektor.com/) or [mkdocs](https://www.mkdocs.org/) do this.
 
